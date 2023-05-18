@@ -171,3 +171,32 @@ SELECT * FROM TITLE;
  working in the department ‘Admin’. */
  
  SELECT COUNT(*) FROM WORKER WHERE DEPARTMENT='Admin';
+ 
+ /* Write an SQL query to fetch worker names with salaries >= 50000 and <= 100000 */
+ 
+ SELECT CONCAT(FIRST_NAME,' ',LAST_NAME) AS WORKER_NAME,SALARY FROM WORKER WHERE WORKER_ID 
+ IN (SELECT WORKER_ID FROM WORKER WHERE SALARY BETWEEN 50000 AND 100000);
+ 
+ /* Write an SQL query to fetch the no. of workers for each 
+ department in descending order. */
+ 
+ SELECT DEPARTMENT , COUNT(WORKER_ID) AS NUM_WORKER FROM WORKER 
+ GROUP BY DEPARTMENT ORDER BY NUM_WORKER DESC;
+
+/* Write an SQL query to print details of the Workers who are also Managers. */
+
+SELECT DISTINCT W.FIRST_NAME, T.WORKER_TITLE
+FROM Worker W
+INNER JOIN Title T
+ON W.WORKER_ID = T.WORKER_REF_ID
+AND T.WORKER_TITLE in ('Manager');
+
+/* Write an SQL query to show only odd rows from a table. */
+SELECT * FROM Worker WHERE MOD (WORKER_ID, 2) <> 0;
+
+/* Write an SQL query to show only even rows from a table. */
+SELECT * FROM WORKER WHERE MOD(WORKER_ID,2)=0;
+
+/* Write an SQL query to show the top n (say 10) records of a table. */
+SELECT * FROM WORKER ORDER BY SALARY DESC LIMIT 10;
+
